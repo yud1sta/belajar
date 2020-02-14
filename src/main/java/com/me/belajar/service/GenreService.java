@@ -1,24 +1,22 @@
 package com.me.belajar.service;
 
-import com.me.belajar.dto.RequestAuthorDTO;
-import com.me.belajar.dto.ResponseAuthorCommonDTO;
+import com.me.belajar.dto.RequestGenreDTO;
+import com.me.belajar.entity.Genre;
 
 import java.util.List;
 
 public interface GenreService {
-    public List<GenreService> findAll();
+    public List<Genre> findAll();
 
     //find by single id
-    public GenreService findById(int theId);
+    public Genre findById (Integer id);
 
-    //Create Author
-    public void save(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
+    //Create Genre
+    public Genre save(RequestGenreDTO requestGenreDTODTO);
 
     //Update Role
-    public void update(RequestAuthorDTO requestAuthorDTODTO);
+    public Genre update(RequestGenreDTO requestGenreDTODTO, Integer id);
 
     //delete user by id
-    public void deleteById(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
-
-//    public GenreService updateById(int theId);
+    public Genre deleteById(Integer id);
 }

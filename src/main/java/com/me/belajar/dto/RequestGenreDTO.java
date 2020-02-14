@@ -1,12 +1,12 @@
 package com.me.belajar.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.me.belajar.entity.Book;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
-
+@Setter
+@Getter
 public class RequestGenreDTO {
     private Integer id;
     private String genre;

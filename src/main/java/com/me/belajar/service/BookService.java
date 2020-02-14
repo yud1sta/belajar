@@ -1,24 +1,22 @@
 package com.me.belajar.service;
 
-import com.me.belajar.dto.RequestAuthorDTO;
-import com.me.belajar.dto.ResponseAuthorCommonDTO;
+import com.me.belajar.dto.RequestBookDTO;
+import com.me.belajar.entity.Book;
 
 import java.util.List;
 
 public interface BookService {
-    public List<BookService> findAll();
+    public List<Book> findAll();
 
     //find by single id
-    public BookService findById(int theId);
+    public Book findById (Integer id);
 
-    //Create Author
-    public void save(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
+    //Create Book
+    public Book save(RequestBookDTO requestBookDTODTO);
 
     //Update Role
-    public void update(RequestAuthorDTO requestAuthorDTODTO);
+    public Book update(RequestBookDTO requestBookDTODTO, Integer id);
 
     //delete user by id
-    public void deleteById(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
-
-//    public BookService updateById(int theId);
+    public Book deleteById(Integer id);
 }

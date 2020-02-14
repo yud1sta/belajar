@@ -26,6 +26,10 @@ public interface BaseRepository<T> extends JpaRepository<T, Integer> {
     @Query("select e from #{#entityName} e where e.isDeleted is null")
     Page<T> findAll(Pageable pageable);
 
+//    @Transactional(readOnly = true)
+//    @Query("select e from #{#entityName} e where e.id = ?1 and e.isDeleted is not null")
+//    Optional<T> findDeletedById(Integer id);
+
     @Override
     @Transactional(readOnly = true)
     @Query("select e from #{#entityName} e where e.id = ?1 and e.isDeleted is null")
