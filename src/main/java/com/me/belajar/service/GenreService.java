@@ -20,5 +20,5 @@ public interface GenreService {
     //delete user by id
     public void deleteById(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
 
-    public GenreService updateById(int theId);
+//    public GenreService updateById(int theId);
 }

@@ -42,6 +42,23 @@ public class AuthorController {
         }
     }
 
+    @GetMapping("/author/{id}")
+    public ResponseEntity<ResponseAuthorCommonDTO<Author>> findById(@PathVariable Integer id) {
+        ResponseAuthorCommonDTO<Author> response = new ResponseAuthorCommonDTO<>();
+        try
+        {
+            Author author =  authorService.findById(id);
+            response.success();
+            response.setData(author);
+            return new ResponseEntity<>(response ,HttpStatus.OK);
+        }
+        catch(Exception e)
+        {
+            response.internalServerError(e.getMessage());
+            return new ResponseEntity<>(response ,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("/author")
     // @PreAuthorize("hasAuthority('SUPERVISOR') or hasAuthority('SYSTEMADMIN') or hasAuthority('SUPERADMIN') or hasAuthority('COORDINATOR')")
     public ResponseEntity<ResponseAuthorCommonDTO<Author>> save(@RequestBody RequestAuthorDTO requestAuthorDTO)
@@ -62,15 +79,15 @@ public class AuthorController {
         }
     }
 
-    @PutMapping("/author")
+    @PutMapping("/author/{id}")
     // @PreAuthorize("hasAuthority('SUPERVISOR') or hasAuthority('SYSTEMADMIN') or hasAuthority('SUPERADMIN') or hasAuthority('COORDINATOR')")
-    public ResponseEntity<ResponseAuthorCommonDTO<Author>> update(@RequestBody RequestAuthorDTO requestAuthorDTO)
+    public ResponseEntity<ResponseAuthorCommonDTO<Author>> update(@RequestBody RequestAuthorDTO requestAuthorDTO, @PathVariable Integer id)
     {
         ResponseAuthorCommonDTO<Author> response = new ResponseAuthorCommonDTO<>();
 
         try
         {
-            Author author =  authorService.update(requestAuthorDTO);
+            Author author =  authorService.update(requestAuthorDTO,id);
             response.success();
             response.setData(author);
             return new ResponseEntity<>(response ,HttpStatus.OK);
@@ -82,18 +99,25 @@ public class AuthorController {
         }
     }
 
-//    @DeleteMapping("/author/{theId}")
-//    // @PreAuthorize("hasAuthority('SUPERVISOR') or hasAuthority('SYSTEMADMIN') or hasAuthority('SUPERADMIN') or hasAuthority('COORDINATOR')")
-//    public ResponseEntity<ResponseAuthorCommonDTO<Author>> deleteCountry(@PathVariable Integer theId)
-//    {
-//        RequestUserCountryDTO requestCountryDTO = new RequestUserCountryDTO();
-//        requestCountryDTO.setCountryId(theId);
-//
-//        ResponseCountryDTO response = new ResponseCountryDTO();
-//        countryService.delete(requestCountryDTO, response);
-//
-//        return response;
-//    }
+    @DeleteMapping("/author/{id}")
+    // @PreAuthorize("hasAuthority('SUPERVISOR') or hasAuthority('SYSTEMADMIN') or hasAuthority('SUPERADMIN') or hasAuthority('COORDINATOR')")
+    public ResponseEntity<ResponseAuthorCommonDTO<Author>> deleteById(@PathVariable Integer id)
+    {
+        ResponseAuthorCommonDTO<Author> response = new ResponseAuthorCommonDTO<>();
+
+        try
+        {
+            Author author =  authorService.deleteById(id);
+            response.success();
+            response.setData(author);
+            return new ResponseEntity<>(response ,HttpStatus.OK);
+        }
+        catch(Exception e)
+        {
+            response.internalServerError(e.getMessage());
+            return  new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

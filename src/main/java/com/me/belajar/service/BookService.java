@@ -20,5 +20,5 @@ public interface BookService {
     //delete user by id
     public void deleteById(RequestAuthorDTO requestAuthorDTODTO, ResponseAuthorCommonDTO responseAuthorDTO);
 
-    public BookService updateById(int theId);
+//    public BookService updateById(int theId);
 }

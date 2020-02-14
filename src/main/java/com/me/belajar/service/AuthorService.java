@@ -10,16 +10,16 @@ public interface AuthorService {
     public List<Author> findAll();
 
     //find by single id
-    public Author findById (int theId);
+    public Author findById (Integer id);
 
     //Create Author
     public Author save(RequestAuthorDTO requestAuthorDTODTO);
 
     //Update Role
-    public Author update(RequestAuthorDTO requestAuthorDTODTO);
+    public Author update(RequestAuthorDTO requestAuthorDTODTO, Integer id);
 
     //delete user by id
-    public Author deleteById(RequestAuthorDTO requestAuthorDTODTO);
+    public Author deleteById(Integer id);
 
-    public Author updateById(int theId);
+//    public Author updateById(int theId);
 }

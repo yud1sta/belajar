@@ -50,5 +50,17 @@ public class Author implements Serializable {
     @Column(name = "is_deleted")
     private Integer isDeleted;
 
-
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id='" + id + '\'' +
+                ", nama='" + nama + '\'' +
+                ", alamat=" + alamat +
+                ", no hp=" + noHp +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", deleteTime=" + deleteTime +
+                ", is deleted=" + isDeleted +
+                '}';
+    }
 }

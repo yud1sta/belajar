@@ -31,8 +31,8 @@ public class GenreServiceImpl implements GenreService {
 
     }
 
-    @Override
-    public GenreService updateById(int theId) {
-        return null;
-    }
+//    @Override
+//    public GenreService updateById(int theId) {
+//        return null;
+//    }
 }

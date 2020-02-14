@@ -3,7 +3,9 @@ package com.me.belajar.service;
 import com.me.belajar.dto.RequestAuthorDTO;
 import com.me.belajar.entity.Author;
 import com.me.belajar.exception.NotFoundException;
+import com.me.belajar.helper.CopyProperties;
 import com.me.belajar.repository.AuthorRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,18 +29,18 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author findById(int theId) {
-        return null;
+    public Author findById(Integer id) {
+        Author author =  authorRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(id,"Author"));
+
+        return author;
     }
 
     @Override
     @Transactional
     public Author save(RequestAuthorDTO requestAuthorDTO) {
         Author author = new Author();
-
-        author.setNama(requestAuthorDTO.getNama());
-        author.setNoHp(requestAuthorDTO.getNoHp());
-        author.setAlamat(requestAuthorDTO.getAlamat());
+        BeanUtils.copyProperties(requestAuthorDTO, author);
         author.setCreateTime(new Date());
         // save to database
         authorRepository.save(author);
@@ -47,26 +49,30 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     @Transactional
-    public Author update(RequestAuthorDTO requestAuthorDTO) {
-        Integer id  = requestAuthorDTO.getId();
+    public Author update(RequestAuthorDTO requestAuthorDTO, Integer id) {
         Author author =  authorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(id,"Author"));
 
-        author.setNama(requestAuthorDTO.getNama());
-        author.setAlamat(requestAuthorDTO.getAlamat());
-        author.setNoHp(requestAuthorDTO.getNoHp());
+        BeanUtils.copyProperties(requestAuthorDTO, author, CopyProperties.getNullPropertyNames(requestAuthorDTO));
+        author.setUpdateTime(new Date());
 
         return authorRepository.save(author);
     }
 
     @Override
-    public Author deleteById(RequestAuthorDTO requestAuthorDTO) {
-        Author author = new Author();
-        return author;
+    public Author deleteById(Integer id) {
+        Author author =  authorRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(id,"Author"));
+
+        author.setDeleteTime(new Date());
+        author.setIsDeleted(1);
+
+        authorRepository.save(author);
+        return  author;
     }
 
-    @Override
-    public Author updateById(int theId) {
-        return null;
-    }
+//    @Override
+//    public Author updateById(int theId) {
+//        return null;
+//    }
 }
