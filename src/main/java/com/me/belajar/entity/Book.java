@@ -31,15 +31,8 @@ public class Book implements Serializable {
     @JsonIgnore
     private Author author;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    @JoinTable(name = "book_genre",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
+    @ManyToMany(mappedBy = "books")
+    @JsonIgnore
     private Set<Genre> genres = new HashSet<>();
 
     @Column(name="judul")

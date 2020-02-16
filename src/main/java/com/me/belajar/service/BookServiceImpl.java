@@ -53,6 +53,7 @@ public class BookServiceImpl implements BookService {
         Book book = new Book();
         BeanUtils.copyProperties(requestBookDTO, book);
         book.setCreateTime(new Date());
+        book.setAuthor(author);
 
         for (Integer genreId : requestBookDTO.getGenres()){
             // if genre doesnt exist throw exception
@@ -73,11 +74,29 @@ public class BookServiceImpl implements BookService {
         Book book =  bookRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(id,"Book"));
 
-        // copy field not null only
-        BeanUtils.copyProperties(requestBookDTO, book, CopyProperties.getNullPropertyNames(requestBookDTO));
-        book.setUpdateTime(new Date());
+        Author author =  authorRepository.findById(requestBookDTO.getPengarang_id())
+                .orElseThrow(() -> new NotFoundException(requestBookDTO.getPengarang_id(),"Author"));
 
-        return bookRepository.save(book);
+        BeanUtils.copyProperties(requestBookDTO, book,CopyProperties.getNullPropertyNames(requestBookDTO));
+        book.setUpdateTime(new Date());
+        book.setAuthor(author);
+        // remove all relation before insert
+        for (Genre g: book.getGenres()){
+            g.getBooks().remove(book);
+            book.getGenres().remove(g);
+        }
+
+        for (Integer genreId : requestBookDTO.getGenres()){
+//             if genre doesnt exist throw exception
+            Genre genre =  genreRepository.findById(2)
+                    .orElseThrow(() -> new NotFoundException(genreId,"Genre"));
+            book.getGenres().add(genre);
+            genre.getBooks().add(book);
+        }
+
+
+        bookRepository.save(book);
+        return book;
     }
 
     @Override

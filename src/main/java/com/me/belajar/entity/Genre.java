@@ -26,9 +26,13 @@ public class Genre implements Serializable {
     @Column(name="id")
     private Integer id;
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany
+    @JoinTable(name = "book_genre",
+            joinColumns = @JoinColumn(name = "genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
     @JsonIgnore
-    Set<Book> books =  new HashSet<>();
+    Set<Book> books  =  new HashSet<>();
 
     @Column(name="genre",nullable = false)
     private String genre;
