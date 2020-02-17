@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +14,10 @@ import java.util.List;
 public class RequestBookDTO {
 
     private Integer id;
+
+    @NotNull(message = "pengarang_id harus di isi")
     private Integer pengarang_id;
+
     private String judul;
     private String jumlahHalaman;
 

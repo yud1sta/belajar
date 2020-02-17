@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/api")
@@ -59,7 +60,7 @@ public class BookController {
 
     @PostMapping("/book")
     // @PreBookize("hasBookity('SUPERVISOR') or hasBookity('SYSTEMADMIN') or hasBookity('SUPERADMIN') or hasBookity('COORDINATOR')")
-    public ResponseEntity<ResponseBookCommonDTO<Book>> save(@RequestBody RequestBookDTO requestBookDTO)
+    public ResponseEntity<ResponseBookCommonDTO<Book>> save(@RequestBody @Valid RequestBookDTO requestBookDTO)
     {
         ResponseBookCommonDTO<Book> response = new ResponseBookCommonDTO<>();
 
